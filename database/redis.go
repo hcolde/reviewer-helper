@@ -34,6 +34,14 @@ func (redis *Redis) Get(ctx context.Context, key string, rcv *string) error {
 	return redis.client.Do(ctx, redix.Cmd(&rcv, "GET", key))
 }
 
+func (redis *Redis) Hset(ctx context.Context, key, field, value string) error {
+	return redis.client.Do(ctx, redix.Cmd(nil, "HSET", key, field, value))
+}
+
+func (redis *Redis) Hget(ctx context.Context, key, field string, rcv *string) error {
+	return redis.client.Do(ctx, redix.Cmd(&rcv, "HGET", key, field))
+}
+
 func (redis *Redis) Close() {
 	_ = redis.client.Close()
 }
