@@ -26,6 +26,10 @@ func (redis *Redis) New(ctx context.Context) error {
 	return nil
 }
 
+func (redis *Redis) LPush(ctx context.Context, key, value string) error {
+	return redis.client.Do(ctx, redix.Cmd(nil, "LPUSH", key, value))
+}
+
 func (redis *Redis) BRPop(ctx context.Context, key string, rcv *[]string) error {
 	return redis.client.Do(ctx, redix.Cmd(&rcv, "BRPOP", key, "0"))
 }
@@ -40,6 +44,10 @@ func (redis *Redis) Hset(ctx context.Context, key, field, value string) error {
 
 func (redis *Redis) Hget(ctx context.Context, key, field string, rcv *string) error {
 	return redis.client.Do(ctx, redix.Cmd(&rcv, "HGET", key, field))
+}
+
+func (redis *Redis) Del(ctx context.Context, key string) error {
+	return redis.client.Do(ctx, redix.Cmd(nil, "DEL", key))
 }
 
 func (redis *Redis) Close() {

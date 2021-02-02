@@ -18,7 +18,11 @@ type log struct {
 }
 
 type redisKey struct {
-	PayList string `toml:"pay_list"`
+	Publisher string `toml:"publisher"`
+	PayList   string `toml:"pay_list"`
+	VIPList   string `toml:"vip_list"`
+	Member    string `toml:"member"`
+	VIP       string `toml:"vip"`
 }
 
 type redis struct {
